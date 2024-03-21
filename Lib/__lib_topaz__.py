@@ -125,5 +125,11 @@ def disable_ray_tracing(static_mesh : unreal.StaticMesh) -> None : #레이트레
         static_mesh.set_editor_property('support_ray_tracing', False)
         print(static_mesh.get_editor_property('support_ray_tracing'))
 
+
+def get_asset_from_static_mesh_actor (actor : unreal.Actor) -> unreal.StaticMesh : #액터에서 스태틱메쉬 리턴 
+    static_mesh = actor.static_mesh_component.static_mesh
+    return static_mesh
+
+
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')
