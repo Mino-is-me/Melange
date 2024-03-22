@@ -130,6 +130,13 @@ def get_asset_from_static_mesh_actor (actor : unreal.Actor) -> unreal.StaticMesh
     static_mesh = actor.static_mesh_component.static_mesh
     return static_mesh
 
+def get_textures_list_from_materials(materials : list[unreal.MaterialInterface]) -> list[unreal.Texture] : #메테리얼에서 텍스쳐 리스트로 리턴 
+    textures = []
+    for material in materials :
+        for i in range(material.get_num_texture_parameters()):
+            textures.append(material.get_texture_parameter_name(i))
+    return textures
 
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')
+
