@@ -15,3 +15,6 @@ for actor in actors :
         asset = component.static_mesh
         topaz.disable_ray_tracing(asset)
         print(str(asset) + ' : ray tracing disabled') 
+
+
+#disalbe Ray Trace in LevelInstance powered by topaz 
