@@ -142,14 +142,27 @@ def get_actor_bound_size(actor : unreal.Actor) -> unreal.Vector : #액터 바운
     return bound
 
 
-def set_texture_size_by_bound_size(bound_size : unreal.Vector, texture : unreal.Texture) -> None : #텍스쳐 사이즈 바운드 사이즈로 설정
-    bound_length = bound_size.length()
-    if bound_length < 100 :
+def set_texture_size_by_bound(bound_size : unreal.Vector, texture : unreal.Texture) -> None : #텍스쳐 사이즈 바운드 사이즈로 설정
+    
+    size_small : unreal.Vector = unreal.Vector(1,1,1)
+    size_medium : unreal.Vector = unreal.Vector(10,10,10)
+    size_large : unreal.Vector = unreal.Vector(100,100,100)
+
+    print(bound_size)
+
+    if bound_size < size_small : # in case of small size actor 
         texture.set_editor_property('max_texture_size', 512)
-    elif bound_length < 500 :
+
+    elif bound_size >= size_small and bound_size < size_medium : # in case of medium size actor
         texture.set_editor_property('max_texture_size', 1024)
-    elif bound_length < 1000 : 
+
+    elif bound_size >= size_medium and bound_size < size_large : # in case of large size actor
         texture.set_editor_property('max_texture_size', 2048)
+
+    else : # in case of huge size actor
+        texture.set_editor_property('max_texture_size', 2048)
+        print('Size is too large, but maximum texture size is set to 2048')
+
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')
 

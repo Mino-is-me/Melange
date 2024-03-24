@@ -45,4 +45,8 @@ def openFolder( folder_path : str ):
     os.startfile(folder_path)
     return True
 
+def list_logger(list : list) -> None : #리스트 로거
+    for each in list :
+        print(each)
+
 unreal.log('Stelle initialised.')
