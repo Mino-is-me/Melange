@@ -30,10 +30,10 @@ def bulk_renamer(asset_path_list : str) -> None:
         unreal.EditorAssetLibrary.rename_asset(i,newName)
         print('Renamed ' + i + ' to ' + newName)
 
-def spine_breaker(asset : unreal.Object) -> None:
-    topaz.set_texture_size_by_bound(topaz.get_actor_bound_size(topaz.get_asset_from_static_mesh_actor(asset)),topaz.get_textures_list_from_materials(asset.get_editor_property('materials')))
-
-#spine_breaker(topaz.get_selected_asset())
+def spine_breaker(actor : unreal.Actor) -> None :
+    if actor is not None :
+        topaz.get_actor_bound_size(actor)
+spine_breaker(topaz.get_selected_level_actor())
 
 #bulk_renamer(shit_list)
 #stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')

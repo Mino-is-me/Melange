@@ -137,16 +137,21 @@ def get_textures_list_from_materials(materials : list[unreal.MaterialInterface])
             textures.append(material.get_texture_parameter_name(i))
     return textures
 
-def get_actor_bound_size(actor : unreal.Actor) -> unreal.Vector : #액터 바운드 사이즈 리턴
-    bound = actor.get_actor_bounds(True)
-    return bound
+def get_actor_bound_size(actor : unreal.Actor) -> float : #액터 바운드 사이즈를 퓨어하게 리턴
+    bound = actor.get_actor_bounds(False, True)
+    pure_bound = bound[0]
+    distance = pure_bound.distance(bound[1])
+    length = pure_bound.length()
+    print('distance = ' + str(distance))
+    print('length = ' + str(length))
+    return distance
 
 
-def set_texture_size_by_bound(bound_size : unreal.Vector, texture : unreal.Texture) -> None : #텍스쳐 사이즈 바운드 사이즈로 설정
+def set_texture_size_by_bound(bound_size : float, texture : unreal.Texture ) -> None : #텍스쳐 사이즈 바운드 사이즈로 설정
     
-    size_small : unreal.Vector = unreal.Vector(1,1,1)
-    size_medium : unreal.Vector = unreal.Vector(10,10,10)
-    size_large : unreal.Vector = unreal.Vector(100,100,100)
+    size_small : float = 100.0
+    size_medium : float = 1000.0
+    size_large : float = 10000.0
 
     print(bound_size)
 
@@ -162,6 +167,7 @@ def set_texture_size_by_bound(bound_size : unreal.Vector, texture : unreal.Textu
     else : # in case of huge size actor
         texture.set_editor_property('max_texture_size', 2048)
         print('Size is too large, but maximum texture size is set to 2048')
+
 
 class log :
     def __init__(self, message : str) -> None:
