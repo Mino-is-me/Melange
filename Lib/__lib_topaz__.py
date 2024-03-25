@@ -163,6 +163,27 @@ def set_texture_size_by_bound(bound_size : unreal.Vector, texture : unreal.Textu
         texture.set_editor_property('max_texture_size', 2048)
         print('Size is too large, but maximum texture size is set to 2048')
 
+class log :
+    def __init__(self, message : str) -> None:
+        unreal.log(message)
+
+    def __call__(self, message : str) -> None:
+        unreal.log(message)
+
+    def __super__(asset : unreal.Object) -> None:
+        print(asset)
+        print(asset.get_path_name())
+        print(asset.get_name())
+        print(asset.get_full_name())
+        #print(asset.get_display_name())
+        print(asset.get_class())
+        print(asset.get_class().get_name())
+        #print(asset.get_class().get_super_class().get_name())
+
+    def __test__(self):
+        unreal.log('log Test')
+
+
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')
 
