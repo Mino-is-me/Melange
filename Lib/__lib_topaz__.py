@@ -144,6 +144,7 @@ def get_actor_bound_size(actor : unreal.Actor) -> float : #액터 바운드 사�
     length = pure_bound.length()
     print('distance = ' + str(distance))
     print('length = ' + str(length))
+    
     return distance
 
 

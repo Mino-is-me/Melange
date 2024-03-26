@@ -5,6 +5,9 @@ from Lib import __lib_stelle__ as stelle
 importlib.reload(topaz)
 importlib.reload(stelle)
 
+def get_all_leveL_actors() -> list[unreal.Actor]: #리스트로 선택된 액터 리턴
+    actors = unreal.EditorLevelLibrary.get_all_level_actors()
+    return actors
 
 def assetValidator(folder_path : str) -> list[str] : #Returns a list of assets that are too long
     need_to_return = []
@@ -30,10 +33,14 @@ def bulk_renamer(asset_path_list : str) -> None:
         unreal.EditorAssetLibrary.rename_asset(i,newName)
         print('Renamed ' + i + ' to ' + newName)
 
-def spine_breaker(actor : unreal.Actor) -> None :
-    if actor is not None :
-        topaz.get_actor_bound_size(actor)
-spine_breaker(topaz.get_selected_level_actor())
+def spine_breaker():
+    all_actors = get_all_leveL_actors()
+    for actor in all_actors:
+        if actor.get_class() == unreal.StaticMeshActor() :
+            print('staticmeshactor')
+        elif actor.get_class() == unreal.blueprint() :
+            print('blueprint')
+            #spine_breaker(topaz.get_selected_level_actor())
 
 #bulk_renamer(shit_list)
 #stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')
