@@ -42,6 +42,22 @@ def spine_breaker():
             print('blueprint')
             #spine_breaker(topaz.get_selected_level_actor())
 
+def unused_asset_notifier() -> None:
+    workingPath = "/Game/"
+    @unreal.uclass()
+    class GetEditorAssetLibrary(unreal.EditorAssetLibrary):
+        pass
+
+    editorAssetLib = GetEditorAssetLibrary();
+
+    allAssets = editorAssetLib.list_assets(workingPath, True, False)
+
+    if (len(allAssets) > 0):
+        for asset in allAssets:
+            deps = editorAssetLib.find_package_referencers_for_asset(asset, False)
+            if (len(deps) == 0):
+                print (">>>%s" % asset)
+
 #bulk_renamer(shit_list)
 #stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')
 ###Initialised message when loaded ###
