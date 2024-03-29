@@ -1,0 +1,1 @@
+git clone -b art/main-s --single-branch https://gitlab.cinamon.me/cinev/CINEVStudio.git

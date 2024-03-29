@@ -6,7 +6,6 @@ importlib.reload(topaz)
 
 #topaz.get_selected_assets()
 
-selected = topaz.get_selected_level_actor() 
+selected = topaz.get_selected_level_actor()
 
-print ( selected.__class__ ) 
-print ( selected.get_class().get_name())
+topaz.get_actor_bound_size(selected)
