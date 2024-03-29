@@ -4,4 +4,9 @@ git config --global lfs.fetchrecentremoterefs false
 
 git config lfs.https://gitlab.cinamon.me/cinev/CINEVStudio.git/info/lfs.locksverify true
 
+<<<<<<< HEAD
 git clone -b art/main-s1 --single-branch https://gitlab.cinamon.me/cinev/CINEVStudio.git
+
+=======
+git clone -b art/main-s1 --single-branch https://gitlab.cinamon.me/cinev/CINEVStudio.git
+>>>>>>> origin/main
