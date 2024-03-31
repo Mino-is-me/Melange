@@ -1,9 +1,7 @@
-import unreal 
-from Lib import __lib_topaz__ as topaz
 import os
 import csv
 
-__all__ = ['get_assets_in_folder','get_selected_level_actor','substring','get_filenames','write_list_to_csv','export_staticmesh_to_fbx','openFolder','list_logger']
+__all__ = ['get_assets_in_folder','get_selected_level_actor','substring','get_filenames','write_list_to_csv','openFolder']
 
 def substring( _str : str , _from : str , _to : str ):
     _str = r"{}".format(_str)
@@ -34,23 +32,12 @@ def write_list_to_csv( data : list , csv_file_path : str ):
 
     return True
 
-def export_staticmesh_to_fbx( static_mesh : unreal.StaticMesh, fbx_file_path : str): #staticMeshExporter 
-    exportTask = unreal.AssetExportTask()
-    exportTask.automated = True
-    exportTask.filename = fbx_file_path
-    exportTask.object = static_mesh
-    exportTask.options = unreal.FbxExportOption()
-    exportTask.prompt = False
+def get_this_abs_directory() -> str : #현재 파일 경로 반환 
+    return (os.path.dirname(os.path.realpath(__file__)))
 
-    fbxExporter = unreal.StaticMeshExporterFBX()
-    exportTask.exporter = fbxExporter
-    fbxExporter.run_asset_export_task(exportTask)
-
-    return True
 
 def openFolder( folder_path : str ):
     os.startfile(folder_path)
     return True
 
-unreal.log('Stelle initialised.')
-
+print('Stelle initialised.')
