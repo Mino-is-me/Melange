@@ -40,6 +40,7 @@ def spine_breaker():
     for actor in all_actors:
         if actor.get_class() == unreal.StaticMeshActor() :
             print('staticmeshactor')
+            
         elif actor.get_class() == unreal.blueprint() :
             print('blueprint')
             #spine_breaker(topaz.get_selected_level_actor())

@@ -22,10 +22,9 @@ def write_list_to_csv( data : list , csv_file_path : str ):
     with open(csv_file_path, 'w', newline='') as csvfile:
         # Create a CSV writer
         writer = csv.writer(csvfile)
-
-        # Write the list to the CSV file
-        # If data is a list of lists (multiple rows), use writerows
-        writer.writerows(data)
+        for each in data:
+            each = [each]
+            writer.writerow(each)
 
     return True
 
@@ -47,8 +46,6 @@ def openFolder( folder_path : str ):
     os.startfile(folder_path)
     return True
 
-def list_logger(list : list) -> None : #리스트 로거
-    for each in list :
-        print(each)
-
 unreal.log('Stelle initialised.')
+
+`
