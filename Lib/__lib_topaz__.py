@@ -189,25 +189,20 @@ def get_all_texture_assets_from_material_instance(material_instance : unreal.Mat
     for i in range(material_instance.get_num_texture_parameters()):
         textures.append(material_instance.get_texture_parameter_name(i))
     return textures
-class log :
-    def __init__(self, message : str) -> None:
-        unreal.log(message)
 
-    def __call__(self, message : str) -> None:
-        unreal.log(message)
+def export_staticmesh_to_fbx( static_mesh : unreal.StaticMesh, fbx_file_path : str): #staticMeshExporter 
+    exportTask = unreal.AssetExportTask()
+    exportTask.automated = True
+    exportTask.filename = fbx_file_path
+    exportTask.object = static_mesh
+    exportTask.options = unreal.FbxExportOption()
+    exportTask.prompt = False
 
-    def __super__(asset : unreal.Object) -> None:
-        print(asset)
-        print(asset.get_path_name())
-        print(asset.get_name())
-        print(asset.get_full_name())
-        #print(asset.get_display_name())
-        print(asset.get_class())
-        print(asset.get_class().get_name())
-        #print(asset.get_class().get_super_class().get_name())
+    fbxExporter = unreal.StaticMeshExporterFBX()
+    exportTask.exporter = fbxExporter
+    fbxExporter.run_asset_export_task(exportTask)
 
-    def __test__(self):
-        unreal.log('log Test')
+    return True
 
 
 ###Initialised message when loaded ###
