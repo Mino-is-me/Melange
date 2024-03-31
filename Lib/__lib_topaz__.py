@@ -170,6 +170,11 @@ def set_texture_size_by_bound(bound_size : float, texture : unreal.Texture ) -> 
         print('Size is too large, but maximum texture size is set to 2048')
 
 
+def get_all_texture_assets_from_material_instance(material_instance : unreal.MaterialInstance) -> list[unreal.Texture] : #메테리얼 인스턴스에서 텍스쳐 리스트로 리턴 
+    textures = []
+    for i in range(material_instance.get_num_texture_parameters()):
+        textures.append(material_instance.get_texture_parameter_name(i))
+    return textures
 class log :
     def __init__(self, message : str) -> None:
         unreal.log(message)
