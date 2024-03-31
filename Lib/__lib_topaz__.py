@@ -1,5 +1,12 @@
 import unreal
 
+
+__all__ = ['get_component_handles','get_component_objects','get_component_by_class',
+           'get_component_by_var_name','get_selected_assets','get_selected_asset','get_selected_level_actors','get_selected_level_actor','cutoff_nanite_tri',
+           'set_actor_tag_by_class','get_materials_from_staticmesh','is_translucent_exist','get_assets_in_folder','get_asset_filepath','get_cooked_dir','disable_ray_tracing',
+           'get_asset_from_static_mesh_actor','get_textures_list_from_materials','get_all_texture_assets_from_material_instance','get_actor_bound_size','set_texture_size_by_bound',
+           'log']
+
 def __test__():
     unreal.log('Topaz Test')
 
@@ -21,6 +28,13 @@ def get_component_objects(blueprint_asset_path : str) -> list[unreal.Object] : #
     return objects
 
 def get_component_by_class(blueprint_to_find_components : unreal.Blueprint, component_class_to_find : unreal.Class) -> list[unreal.Object] : ## 컴포넌트중에 클래스 맞는것만 리턴해줌 
+    '''
+    Use Case :
+        topaz.get_component_by_class([블루프린트(어셋)], [찾을 컴포넌트 클래스])
+    주의점 :
+        unreal.StaticMesh 등과 같은 어셋 오브젝트가 아니라
+        unreal.StaticMeshComponent 등과 같은 컴포넌트 오브젝트를 넣어야 합니다.
+    '''
     components = []
     asset_path          : list[str]             = unreal.EditorAssetLibrary.get_path_name_for_loaded_asset(blueprint_to_find_components)
     component_objects   : list[unreal.Class]    = get_component_objects(asset_path)
