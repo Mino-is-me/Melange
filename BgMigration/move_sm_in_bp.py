@@ -20,8 +20,9 @@ for staticMesh in staticMeshsInBP:
     length = len(arr)
     staticMeshFilesName = arr[length-1]
     targetPath = staticMeshesDirectory + '/' + staticMeshFilesName
-    print(targetPath)
     sourcePath = staticMesh.static_mesh.get_path_name()
-    unreal.EditorAssetLibrary.RenameAsset(sourcePath, targetPath)
+    print(sourcePath, "sourcePath")
+    print(targetPath, "targetPath")
+    # unreal.EditorAssetLibrary.RenameAsset(sourcePath, targetPath)
 
-    # unreal.EditorAssetLibrary.RenameAsset(staticMesh.static_mesh, targetPath)
+    unreal.EditorAssetLibrary.RenameAsset(sourcePath, targetPath)
