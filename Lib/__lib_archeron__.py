@@ -44,9 +44,10 @@ def spine_breaker():
         elif actor.get_class() == unreal.blueprint() :
             print('blueprint')
             #spine_breaker(topaz.get_selected_level_actor())
-
-def unused_asset_notifier() -> None:
-    workingPath = "/Game/"
+            
+            
+def unused_asset_notifier(workingPath : str) -> list[str]: #검증 덜됨 
+    need_to_return = []
     @unreal.uclass()
     class GetEditorAssetLibrary(unreal.EditorAssetLibrary):
         pass
@@ -60,11 +61,17 @@ def unused_asset_notifier() -> None:
             deps = editorAssetLib.find_package_referencers_for_asset(asset, False)
             if (len(deps) == 0):
                 print (">>>%s" % asset)
+                need_to_return.append(asset)
+    return need_to_return
 
-#bulk_renamer(shit_list)
-#stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')
 ###Initialised message when loaded ###
 unreal.log('archeron initialised...')
+
+###Test Code##
+#unused = unused_asset_notifier('/Game/Market_Purchase/ProjectRYU/3D_Assets/Hometown_Props/PotPlants')
+#stelle.write_list_to_csv(unused, 'D:/CINEVStudio/CINEVStudio/Content/Python')
+#bulk_renamer(shit_list)
+#stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')
 
 
 
