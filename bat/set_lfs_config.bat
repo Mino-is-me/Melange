@@ -1,1 +1,0 @@
-git config lfs.https://gitlab.cinamon.me/cinev/CINEVStudio.git/info/lfs.locksverify true
