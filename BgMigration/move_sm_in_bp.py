@@ -12,11 +12,13 @@ for asset in selectedAssets:
 
     directoryPath = asset.get_path_name()
     part = directoryPath.split('/')
-    staticMeshesDirectory = '/'.join(part[:6]) + '/06StaticMeshes' 
+    staticMeshesDirectory = '/'.join(part[:6]) + '/StaticMesh' 
     print(staticMeshesDirectory)
 
     for staticMesh in staticMeshsInBP:
-        # print(staticMesh.static_mesh.get_name())
+        isStaticMesh = staticMesh.static_mesh
+        if not isStaticMesh:
+            continue
         arr = staticMesh.static_mesh.get_path_name().split('/')
         length = len(arr)
         staticMeshFilesName = arr[length-1]
