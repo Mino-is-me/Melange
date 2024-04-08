@@ -33,22 +33,18 @@ def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 �
     #print(projectPath)
     filepath = uepath.replace('/Game/', projectPath + 'Content/')
     name = filepath.rsplit('.', 1)[0]
+    name = name + '.uasset'
     print(name)
     return name
 
     
-def get_selected_asset_source_path() -> str:
+def get_selected_asset_source_path(asset:unreal.object) -> str:
     '''
     ## Description: Get the source path of the selected asset
     '''
-    selected_assets = topaz.get_selected_assets()
-    if len(selected_assets) > 0:
-        asset = selected_assets[0]
-        source_path = unreal.EditorAssetLibrary.get_path_name(asset)
-        print(source_path)
-        return source_path
-    else:
-        return None
+    source_path = unreal.EditorAssetLibrary.get_path_name(asset)
+    print(source_path)
+    return source_path
      
 def lock_asset(asset:str) -> None:
     '''
