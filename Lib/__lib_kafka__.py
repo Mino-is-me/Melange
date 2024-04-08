@@ -32,11 +32,7 @@ def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 �
     projectPath = unreal.Paths.project_dir()
     #print(projectPath)
     filepath = uepath.replace('/Game/', projectPath + 'Content/')
-    #print(projectPath)
-    filepath = uepath.replace('/Game/', projectPath + 'Content/')
     name = filepath.rsplit('.', 1)[0]
-    name = name + '.uasset'
-    print(name)
     name = name + '.uasset'
     print(name)
     return name
