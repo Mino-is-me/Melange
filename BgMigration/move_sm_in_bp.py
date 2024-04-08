@@ -12,7 +12,7 @@ for asset in selectedAssets:
 
     directoryPath = asset.get_path_name()
     part = directoryPath.split('/')
-    staticMeshesDirectory = '/'.join(part[:6]) + '/06StaticMeshes' 
+    staticMeshesDirectory = '/'.join(part[:6]) + '/StaticMesh' 
     print(staticMeshesDirectory)
 
     for staticMesh in staticMeshsInBP:
