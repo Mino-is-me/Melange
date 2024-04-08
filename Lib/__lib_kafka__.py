@@ -2,29 +2,41 @@
 
 import unreal
 import importlib
+import subprocess
 from Lib import __lib_topaz__ as topaz 
-import Sparkle as sparkle 
 
 importlib.reload(topaz)
 
-def __self__() -> None:
+def __init__() -> None:
     '''
     # Description: Source Control Support 
     ## Don't use [UnrealPath], use [ExplorerPath] instead
     ### Example: /Game/[Asset] -> D:/CINEVStudio/CINEVStudio/Content/[Asset]
     '''
+    print('Kafka Initialized')
     pass
+
+def get_git_path() -> str:
+    '''
+    ## Description: Get the path of the git
+    '''
+    git_path = unreal.Paths.project_content_dir()
+    git_path = git_path.rsplit('/', 3)[0] + '/'
+    print(git_path)
+    return git_path
 
 def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 패스로 변환
     '''
     ## Description: Remap the Unreal Engine path to the file path
     '''
     projectPath = unreal.Paths.project_dir()
-    print(projectPath)
-    filepath = uepath.replace('/Game/', projectPath)
+    #print(projectPath)
+    filepath = uepath.replace('/Game/', projectPath + 'Content/')
     name = filepath.rsplit('.', 1)[0]
+    print(name)
     return name
 
+    
 def get_selected_asset_source_path() -> str:
     '''
     ## Description: Get the source path of the selected asset
@@ -33,18 +45,26 @@ def get_selected_asset_source_path() -> str:
     if len(selected_assets) > 0:
         asset = selected_assets[0]
         source_path = unreal.EditorAssetLibrary.get_path_name(asset)
+        print(source_path)
         return source_path
     else:
         return None
+     
+def lock_asset(asset:str) -> None:
+    '''
+    ## Description: Lock the asset
+    '''
+    command = 'git lfs lock ' + asset
+    dir = get_git_path()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
 
-path = get_selected_asset_source_path()
+def unlock_asset(asset:str) -> None:
+    command = 'git lfs unlock ' + asset
+    dir = get_git_path()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+ 
 
-newpath = remap_uepath_to_filepath(path)
-
-print(path,newpath)
-
-#revert_if_unchanged(newpath)
-
-qq = unreal.SourceControl.revert_unchanged_file(newpath, True)
-
-print(qq)
