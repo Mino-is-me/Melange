@@ -3,12 +3,10 @@
 import unreal
 import importlib
 import subprocess
-import subprocess
 from Lib import __lib_topaz__ as topaz 
 
 importlib.reload(topaz)
 
-def __init__() -> None:
 def __init__() -> None:
     '''
     # Description: Source Control Support 
