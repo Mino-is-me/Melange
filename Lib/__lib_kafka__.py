@@ -3,10 +3,12 @@
 import unreal
 import importlib
 import subprocess
+import subprocess
 from Lib import __lib_topaz__ as topaz 
 
 importlib.reload(topaz)
 
+def __init__() -> None:
 def __init__() -> None:
     '''
     # Description: Source Control Support 
@@ -32,7 +34,11 @@ def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 �
     projectPath = unreal.Paths.project_dir()
     #print(projectPath)
     filepath = uepath.replace('/Game/', projectPath + 'Content/')
+    #print(projectPath)
+    filepath = uepath.replace('/Game/', projectPath + 'Content/')
     name = filepath.rsplit('.', 1)[0]
+    name = name + '.uasset'
+    print(name)
     name = name + '.uasset'
     print(name)
     return name
