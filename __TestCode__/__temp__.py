@@ -1,11 +1,11 @@
 import unreal
 import importlib
 from Lib import __lib_topaz__ as topaz
+from Lib import __lib_kafka__ as kafka
 
-importlib.reload(topaz)
+selected = topaz.get_selected_asset()
 
-#topaz.get_selected_assets()
+print(selected.__class__)
 
-selected = topaz.get_selected_level_actor()
 
-topaz.get_actor_bound_size(selected)
+unreal.AssetToolsHelpers.get_asset_tools().redire
