@@ -45,6 +45,21 @@ def get_selected_asset_source_path(asset:object) -> str:
     source_path = unreal.EditorAssetLibrary.get_path_name(asset)
     print(source_path)
     return source_path
+
+def execute_console_command(command:str, target:str ='') -> bool:
+    '''
+    #### Description: Execute the console command
+    #### command : desired command
+    #### target : target object, normaly editor asset.
+    '''
+    dir = get_git_path() 
+    target = target.replace(dir, '')
+    execute_command = command + ' ' + target
+    print('Command : ' + execute_command)
+    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+    
      
 def lock_asset(asset:str) -> None:
     '''
@@ -66,4 +81,3 @@ def unlock_asset(asset:str) -> None:
     output, error = process.communicate()
     print(output)
  
-
