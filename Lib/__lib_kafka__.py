@@ -61,6 +61,22 @@ def execute_console_command(command:str, target:str ='') -> bool:
     print(output)
     
      
+
+def execute_console_command(command:str, target:str ='') -> bool:
+    '''
+    #### Description: Execute the console command
+    #### command : desired command
+    #### target : target object, normaly editor asset.
+    '''
+    dir = get_git_path() 
+    target = target.replace(dir, '')
+    execute_command = command + ' ' + target
+    print('Command : ' + execute_command)
+    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+    
+     
 def lock_asset(asset:str) -> None:
     '''
     ## Description: Lock the asset
@@ -80,4 +96,19 @@ def unlock_asset(asset:str) -> None:
     process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
     print(output)
- 
+    
+def commit_asset(asset:str, commit_message:str) -> None:
+    '''
+    ## Description: Commit the asset
+    '''
+    dir = get_git_path()
+    asset = asset.replace(dir, '')
+    command = 'git add ' + asset
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+    
+    command = 'git commit -m ' + commit_message
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
