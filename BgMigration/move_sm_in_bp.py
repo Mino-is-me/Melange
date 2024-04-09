@@ -16,7 +16,9 @@ for asset in selectedAssets:
     print(staticMeshesDirectory)
 
     for staticMesh in staticMeshsInBP:
-        # print(staticMesh.static_mesh.get_name())
+        isStaticMesh = staticMesh.static_mesh
+        if not isStaticMesh:
+            continue
         arr = staticMesh.static_mesh.get_path_name().split('/')
         length = len(arr)
         staticMeshFilesName = arr[length-1]
