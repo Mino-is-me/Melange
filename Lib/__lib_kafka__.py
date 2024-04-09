@@ -80,4 +80,19 @@ def unlock_asset(asset:str) -> None:
     process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
     print(output)
- 
+    
+def commit_asset(asset:str, commit_message:str) -> None:
+    '''
+    ## Description: Commit the asset
+    '''
+    dir = get_git_path()
+    asset = asset.replace(dir, '')
+    command = 'git add ' + asset
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+    
+    command = 'git commit -m ' + commit_message
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
