@@ -52,7 +52,9 @@ git clone https://github.com/Mino-is-me/Melange.git
 
 # 라이브러리 설명
 
-라이브러리 만든 사람 취향에 따라 스타레일 캐릭터 이름이 되었습니다(…)
+라이브러리 만든 사람 취향에 따라 스타레일 캐릭터 이름이 되었습니다(…)\
+???:아니 라이브러리 이름이 비직관적이면 어떡해요!!!! \
+~~알 바 아닙니다~~ 이게 Pythonic 아닌가요? Do you know beautifulsoup? 
 
 ## Topaz
 
@@ -86,7 +88,7 @@ Melange 안에 있는 실제 스크립트들이 가장 많이 사용하는 **코
 `Lib\__lib_himeko__.py`
 
 카프카는 Unreal Editor에서 Git-LFS를 효과적으로 컨트롤하기 위해서 만들어졌습니다. \
-UEGit 플러그인이 야기하는 문제 (Push after unlock이 되다 말다 함 등)을 효과적으로 해결합니다. \
+UEGit 플러그인이 야기하는 문제 (Unlock after Push가 되다 말다 함 등)을 효과적으로 해결합니다. \
 대부분의 함수는 Git CLI를 Project Root에서 실행하기 위한 함수들입니다.
 
 
