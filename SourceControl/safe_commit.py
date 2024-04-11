@@ -5,17 +5,24 @@ import importlib
 importlib.reload(topaz)
 importlib.reload(kafka)
 
-selected = topaz.get_selected_assets() 
+
+#message = "test_commit_by_melange"
+
+selected:list[object] = topaz.get_selected_assets() 
+git_paths :list[str] = []
 
 for asset in selected : # add and commit 
-    asset_path = kafka.get_selected_asset_source_path(asset)
-    asset_path = kafka.remap_uepath_to_filepath(asset_path)
-    kafka.commit_asset(asset_path, message)
+    asset_path = kafka.get_asset_git_path(asset)
+    git_paths.append(asset_path)
 
-kafka.execute_console_command('git push') # push to remote repository
+kafka.stage_assets(git_paths, 'safe commit & unlock test by Melange') # stage
+command = 'git commit --m ' + '\'' + message + '\''
+kafka.execute_console_command(command) # commit
 
-for asset in selected : # unlock assets
-    asset_path = kafka.get_selected_asset_source_path(asset)
-    asset_path = kafka.remap_uepath_to_filepath(asset_path)
-    kafka.unlock_asset(asset_path)
-    pass
+kafka.execute_console_command('git push') # push
+
+for git_obj in git_paths : # unlock after push 
+    kafka.unlock_asset(git_obj)
+    
+kafka.dialog_box('Safe Commit Complete', 'Check out mark will disappear in 5~10 seconds.')
+

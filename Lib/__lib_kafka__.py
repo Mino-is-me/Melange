@@ -22,7 +22,7 @@ def get_git_path() -> str:
     '''
     git_path = unreal.Paths.project_content_dir()
     git_path = git_path.rsplit('/', 3)[0] + '/'
-    print('Git Path = ' + git_path)
+    #print('Git Path = ' + git_path)
     return git_path
 
 def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 패스로 변환
@@ -78,7 +78,7 @@ def execute_console_command(command:str, target:str ='') -> bool:
     print('Command : ' + execute_command)
     process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
-    print(output)
+    print(command)
 
 def dialog_box(title:str, message:str) -> None:
     '''
@@ -99,11 +99,11 @@ def execute_console_command(command:str, target:str ='') -> bool:
     print('Command : ' + execute_command)
     process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
-    print(output)
+    print(command)
     
      
 
-def execute_console_command(command:str, target:str ='') -> bool:
+def execute_console_command(command:str, target:str ='') -> str:
     '''
     #### Description: Execute the console command
     #### command : desired command
@@ -115,7 +115,8 @@ def execute_console_command(command:str, target:str ='') -> bool:
     print('Command : ' + execute_command)
     process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
-    print(output)
+    print(command)
+    return output
     
      
 def lock_asset(asset:str) -> None:
@@ -127,7 +128,7 @@ def lock_asset(asset:str) -> None:
     command = 'git lfs lock ' + asset
     process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
-    print(output)
+    print(command)
 
 def unlock_asset(asset:str) -> None:
     dir = get_git_path()
@@ -136,20 +137,18 @@ def unlock_asset(asset:str) -> None:
     command = 'git lfs unlock ' + asset
     process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
-    print(output)
+    print(command)
     
-def commit_asset(asset:str, commit_message:str) -> None:
+def stage_assets(assets:list[str], commit_message:str) -> None:
     '''
     ## Description: Commit the asset
     '''
     dir = get_git_path()
-    asset = asset.replace(dir, '')
-    command = 'git add ' + asset
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
-    output, error = process.communicate()
-    print(output)
+    for asset in assets :  
+        asset = asset.replace(dir, '')
+        command = 'git add ' + asset
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+        output, error = process.communicate()
+        print(command)
     
-    command = 'git commit -m ' + commit_message
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
-    output, error = process.communicate()
-    print(output)
+    
