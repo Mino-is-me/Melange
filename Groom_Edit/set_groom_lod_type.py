@@ -1,15 +1,14 @@
 import unreal 
-
+from Lib import __lib_topaz__ as topaz
+import importlib
+importlib.reload(topaz)
 
 origin = unreal.load_asset('/Game/Customizing/Character/senie_Test/Character/A_Head/A_Head_Brow.A_Head_Brow')
 
 lodset = origin.hair_groups_lod
 HairGroupLOD = lodset[0]
 
-asset_list = unreal.EditorUtilityLibrary.get_selected_assets() # selected Editor Asset List 
-
-
-
+asset_list = topaz.get_selected_assets()
 
 for each in asset_list: 
     isGroom = each.__class__ == unreal.GroomAsset 
@@ -25,7 +24,7 @@ for each in asset_list:
             _hair_groups_lod_.append(HairGroupLOD)
         each.hair_groups_lod = _hair_groups_lod_
         print(len(_hair_groups_lod_))
-        unreal.EditorAssetLibrary.checkout_asset(eachname)
+        #unreal.EditorAssetLibrary.checkout_asset(eachname)
         
 
 ## 아직 버그있음 

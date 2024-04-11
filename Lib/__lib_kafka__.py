@@ -46,6 +46,26 @@ def get_selected_asset_source_path(asset:object) -> str:
     print(source_path)
     return source_path
 
+def get_asset_git_path(asset:object) -> str:
+    '''
+    ## Description: Get the git path of the asset
+    '''
+    if asset.__class__ == unreal.World :
+        source_path = get_selected_asset_source_path(asset)
+        projectPath = unreal.Paths.project_dir()
+        #print(projectPath)
+        filepath = source_path.replace('/Game/', projectPath + 'Content/')
+        name = filepath.rsplit('.', 1)[0]
+        name = name + '.umap'
+        print(name)
+        return name
+    else :
+        name = get_selected_asset_source_path(asset)
+        name = remap_uepath_to_filepath(name)
+        print(name)
+        return name 
+    
+    
 def execute_console_command(command:str, target:str ='') -> bool:
     '''
     #### Description: Execute the console command
@@ -59,7 +79,12 @@ def execute_console_command(command:str, target:str ='') -> bool:
     process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
     output, error = process.communicate()
     print(output)
-    
+
+def dialog_box(title:str, message:str) -> None:
+    '''
+    ## Description: Show the dialog box
+    '''
+    unreal.EditorDialog.show_message(title, message, unreal.AppMsgType.OK)
      
 
 def execute_console_command(command:str, target:str ='') -> bool:

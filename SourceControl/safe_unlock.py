@@ -9,8 +9,7 @@ selected = topaz.get_selected_assets()
 
 
 for asset in selected : 
-    asset_path = kafka.get_selected_asset_source_path(asset)
-    asset_path = kafka.remap_uepath_to_filepath(asset_path)
-    kafka.unlock_asset(asset_path)
-    print('Unlocking ' + asset_path)
-    pass
+    git_obj = kafka.get_asset_git_path(asset)
+    kafka.unlock_asset(git_obj)
+
+kafka.dialog_box('Unlock Complete', 'Check out mark will disappear in 5~10 seconds.')
