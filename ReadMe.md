@@ -94,7 +94,7 @@ UEGit 플러그인이 야기하는 문제 (Push after unlock이 되다 말다 �
 
 ### 스파클
 
-`\CINEVStudio\Content\Python\Sparkle.py`
+`Sparkle/*`
 
 ```python
 import unreal 
