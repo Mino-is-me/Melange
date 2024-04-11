@@ -102,6 +102,22 @@ def execute_console_command(command:str, target:str ='') -> bool:
     print(output)
     
      
+
+def execute_console_command(command:str, target:str ='') -> bool:
+    '''
+    #### Description: Execute the console command
+    #### command : desired command
+    #### target : target object, normaly editor asset.
+    '''
+    dir = get_git_path() 
+    target = target.replace(dir, '')
+    execute_command = command + ' ' + target
+    print('Command : ' + execute_command)
+    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(output)
+    
+     
 def lock_asset(asset:str) -> None:
     '''
     ## Description: Lock the asset

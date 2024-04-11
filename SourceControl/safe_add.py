@@ -9,6 +9,6 @@ selected = topaz.get_selected_assets()
 
 for asset in selected : 
     git_obj = kafka.get_asset_git_path(asset)
-    kafka.execute_console_command('gid add ',git_obj)
+    kafka.execute_console_command('git add ',git_obj)
 
 kafka.dialog_box('Add Complete', 'Check out mark will be created in 5~10 seconds.')
