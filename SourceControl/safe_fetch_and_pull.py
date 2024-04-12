@@ -10,7 +10,7 @@ kafka.execute_console_command('git fetch')
 
 kafka.execute_console_command('git stash')
 
-kafka.execute_console_command('git pull --rebase')
+kafka.execute_console_command('git pull')
 
 kafka.execute_console_command('git stash pop')
 
