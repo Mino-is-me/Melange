@@ -6,7 +6,7 @@ importlib.reload(topaz)
 importlib.reload(kafka)
 
 
-#message = "test_commit_by_melange"
+message :str = message.replace(' ', '_') # replace space with '_'
 
 selected:list[object] = topaz.get_selected_assets() 
 git_paths :list[str] = []
