@@ -13,3 +13,5 @@ kafka.execute_console_command('git stash')
 kafka.execute_console_command('git pull --rebase')
 
 kafka.execute_console_command('git stash pop')
+
+kafka.dialog_box('Task Complete', 'Git Fetch & Pull Complete, Assets Appeared in 5~10 Seconds.')
