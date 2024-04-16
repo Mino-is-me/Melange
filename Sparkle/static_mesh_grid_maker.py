@@ -2,10 +2,10 @@ import unreal
 
 objs : list[object] = unreal.EditorLevelLibrary.get_selected_level_actors()
 print(objs)
-offset = 200
-grid_num = 3
 
-grid_cnt = 1
+grid_num : int # UI Binded Value
+grid_cnt : int # UI Binded Value
+offset = 200
 
 offset_vector = unreal.Vector(x=0.0, y=0.0, z=0.0)
 
