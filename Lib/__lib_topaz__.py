@@ -204,15 +204,15 @@ def export_staticmesh_to_fbx( static_mesh : unreal.StaticMesh, fbx_file_path : s
 
     return True
 
-def export_texture_to_tga ( texture_asset : unreal.Texture2D, tga_file_path : str) : #textureExporter
+def export_texture_to_png ( texture_asset : unreal.Texture2D, png_file_path : str) : #textureExporter
     exportTask = unreal.AssetExportTask()
     exportTask.automated = True
-    exportTask.filename = tga_file_path
+    exportTask.filename = png_file_path
     exportTask.object = texture_asset
-    exportTask.options = unreal.TextureExporterTGA()
+    exportTask.options = unreal.TextureExporterPNG()
     exportTask.prompt = False
     
-    tgaExporter = unreal.TextureExporterTGA()
+    tgaExporter = unreal.TextureExporterPNG()
     exportTask.exporter = tgaExporter
     tgaExporter.run_asset_export_task(exportTask)
     
