@@ -64,6 +64,25 @@ def unused_asset_notifier(workingPath : str) -> list[str]: #검증 덜됨
                 need_to_return.append(asset)
     return need_to_return
 
+def get_all_textures_in_folder (working_path : str) -> list[unreal.Texture2D]:
+    need_to_return = []
+    
+    @unreal.uclass()
+    class GetEditorAssetLibrary(unreal.EditorAssetLibrary):
+        pass
+
+    editorAssetLib = GetEditorAssetLibrary();
+
+    allAssets : list[str] = editorAssetLib.list_assets(working_path, True, False)
+    if (len(allAssets) > 0):
+        for asset in allAssets:
+            loaded_asset = editorAssetLib.load_asset(asset)
+            if loaded_asset.get_class() == unreal.Texture2D():
+                need_to_return.append(loaded_asset)
+    print(len(need_to_return) + ' textures found')
+    return need_to_return
+    
+
 ###Initialised message when loaded ###
 unreal.log('archeron initialised...')
 

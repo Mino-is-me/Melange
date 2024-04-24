@@ -204,6 +204,35 @@ def export_staticmesh_to_fbx( static_mesh : unreal.StaticMesh, fbx_file_path : s
 
     return True
 
+def export_texture_to_tga ( texture_asset : unreal.Texture2D, tga_file_path : str) : #textureExporter
+    exportTask = unreal.AssetExportTask()
+    exportTask.automated = True
+    exportTask.filename = tga_file_path
+    exportTask.object = texture_asset
+    exportTask.options = unreal.TextureExporterTGA()
+    exportTask.prompt = False
+    
+    tgaExporter = unreal.TextureExporterTGA()
+    exportTask.exporter = tgaExporter
+    tgaExporter.run_asset_export_task(exportTask)
+    
+    return True
+    
+def reimport_texture ( texture_asset: unreal.Texture2D, tga_file_path : str) : #textureReimporter
+    importTask = unreal.AssetImportTask()
+    importTask.automated = True
+    importTask.filename = tga_file_path
+    importTask.destination_path = unreal.Paths.project_content_dir()
+    importTask.replace_existing = True
+    importTask.save = True
+    importTask.factory = unreal.TextureFactory()
+    importTask.options = unreal.TextureFactory()
+    
+    textureFactory = unreal.TextureFactory()
+    importTask.factory = textureFactory
+    textureFactory.run_asset_import_task(importTask)
+    
+    return True
 
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')

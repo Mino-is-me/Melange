@@ -6,6 +6,7 @@ __all__ = [
     "get_filenames",
     "write_list_to_csv",
     "openFolder",
+    "resize_image_file"
 ]
 
 
@@ -49,5 +50,11 @@ def openFolder(folder_path: str):
     os.startfile(folder_path)
     return True
 
+def resize_image_file(image_path: str, new_width: int, new_height: int):
+    from PIL import Image
+    img = Image.open(image_path)
+    img = img.resize((new_width, new_height))
+    img.save(image_path)
+    return True
 
 print("Stelle initialised.")
