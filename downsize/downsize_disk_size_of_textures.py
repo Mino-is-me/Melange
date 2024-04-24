@@ -9,6 +9,10 @@ importlib.reload(archeron)
 
 # Path: downsize/downsize_disk_size_of_textures.py
 
-list_tex :list[unreal.Texture2D] = archeron.get_all_textures_in_folder('/Game/CitySample')
+list_tex :list[unreal.Texture2D] = archeron.get_all_textures_in_folder('/Game/CitySample/Textures')
 
-print(list_tex)
+
+for tex in list_tex:
+    tex_path = tex.get_path_name()
+    new_tex_path = kafka.remap_uepath_to_filepath(tex_path)
+    #print(new_tex_path)

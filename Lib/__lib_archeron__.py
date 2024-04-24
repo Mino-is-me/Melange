@@ -77,9 +77,11 @@ def get_all_textures_in_folder (working_path : str) -> list[unreal.Texture2D]:
     if (len(allAssets) > 0):
         for asset in allAssets:
             loaded_asset = editorAssetLib.load_asset(asset)
-            if loaded_asset.get_class() == unreal.Texture2D():
+            #print(loaded_asset.__class__)
+            if loaded_asset.__class__ == unreal.Texture2D:
+                #print('yes')
                 need_to_return.append(loaded_asset)
-    print(len(need_to_return) + ' textures found')
+    print(str(len(need_to_return)) + ' textures found')
     return need_to_return
     
 
