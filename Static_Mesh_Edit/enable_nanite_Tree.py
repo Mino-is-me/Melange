@@ -11,7 +11,8 @@ for staticMesh in selected :
     meshNaniteSettings : bool = staticMesh.get_editor_property('nanite_settings')
     blendModes = topaz.get_materials_from_staticmesh(staticMesh, True)
     is_translucent_exist = topaz.is_translucent_exist(blendModes)
-    
+    nanite_settings = unreal.MeshNaniteSettings
+
     if meshNaniteSettings.enabled == True and nanite_settings.preserve_area == False :
         nanite_settings.set_editor_property('preserve_area', True) 
         unreal.StaticMeshEditorSubsystem().set_nanite_settings(staticMesh,meshNaniteSettings, apply_changes=True) #apply changes
