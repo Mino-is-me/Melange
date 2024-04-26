@@ -1,5 +1,7 @@
-import unreal 
+import unreal,importlib
 from Lib import __lib_archeron__ as archeron
+
+importlib.reload(archeron)
 
 actors : list[unreal.Actor] = archeron.get_all_leveL_actors()
 
