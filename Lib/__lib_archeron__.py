@@ -84,15 +84,12 @@ def get_all_textures_in_folder (working_path : str) -> list[unreal.Texture2D]:
     print(str(len(need_to_return)) + ' textures found')
     return need_to_return
     
+## Todo : get only Selected Sublevel actors 
+def get_actors_selected_sublevel () -> list[unreal.Actor]: ## WIP 
+    selected_actors = unreal.EditorLevelLibrary.get_selected_level_actors()
+    return selected_actors
+
+
 
 ###Initialised message when loaded ###
 unreal.log('archeron initialised...')
-
-###Test Code##
-#unused = unused_asset_notifier('/Game/Market_Purchase/ProjectRYU/3D_Assets/Hometown_Props/PotPlants')
-#stelle.write_list_to_csv(unused, 'D:/CINEVStudio/CINEVStudio/Content/Python')
-#bulk_renamer(shit_list)
-#stelle.write_list_to_csv(shit_list, r'D:/art_Narr_SpicePro/CINEVStudio/Content/Python/Debug')
-
-
-
