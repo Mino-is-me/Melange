@@ -3,6 +3,7 @@ from Lib import __lib_kafka__ as kafka
 from Lib import __lib_archeron__ as archeron
 from Lib import __lib_stelle__ as stelle
 import unreal, importlib
+import time
 
 importlib.reload(topaz)
 importlib.reload(kafka)
@@ -32,7 +33,7 @@ def export_texture ( texture_asset : unreal.Texture2D, target_file_path : str, e
     exportTask.object = texture_asset
     exportTask.prompt = False
     exportTask.exporter = exporter
-    
+
     exporter.run_asset_export_task(exportTask)
     return True
 
@@ -41,18 +42,19 @@ def export_texture ( texture_asset : unreal.Texture2D, target_file_path : str, e
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 ImagePathList = []
 
+desired_size = 2048
+
 #선택된 텍스처 익스포트
 for asset in selectedAssets:
     tex_size_x = asset.blueprint_get_size_x()
-
-    # 텍스처 사이즈가 1024보다 크면 익스포트 실행
-
-    # to-do (리임포트 기능 추가 후 진행예정)
-    # 1. vt 켜져있는지 여부 확인하기
+    is_virtual_texture = asset.get_editor_property('virtual_texture_streaming')
     
-    
+    # 조건
+    needs_export = tex_size_x > desired_size and not is_virtual_texture
 
-    if tex_size_x > 1024 :
+    print('need_export : ', needs_export)
+    
+    if needs_export :
         # 변경 목록 전체숫자 체크 용도
         ImagePathList.append(asset)
 
@@ -83,4 +85,5 @@ for asset in selectedAssets:
             exporter = unreal.TextureExporterPNG()
             file_path = new_tex_path.replace('.uasset','.png')
         export_texture(asset, file_path, exporter)
-print('>>>>>>>>> ', len(ImagePathList),' <<<<<<<<<<')
+        time.sleep(5)
+print(' ************** ', len(ImagePathList),' ************** ')

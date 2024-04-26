@@ -33,7 +33,7 @@ def reimport_texture ( selected_asset_path: str, file_path : str) :
     importTask.replace_existing = True
     importTask.save = True
     importTask.factory = textureFactory
-    
+
     executeImportTask(importTask)
     # textureFactory.set_editor_property('asset_import_task', importTask)
     print('HO!')
@@ -42,6 +42,8 @@ def reimport_texture ( selected_asset_path: str, file_path : str) :
 
 def executeImportTask(task):
     unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
+    
+    return True
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 for asset in selectedAssets:
