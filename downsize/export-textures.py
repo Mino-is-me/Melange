@@ -85,5 +85,5 @@ for asset in selectedAssets:
             exporter = unreal.TextureExporterPNG()
             file_path = new_tex_path.replace('.uasset','.png')
         export_texture(asset, file_path, exporter)
-        time.sleep(5)
+        time.sleep(2)
 print(' ************** ', len(ImagePathList),' ************** ')

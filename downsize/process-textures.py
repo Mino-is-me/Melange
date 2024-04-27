@@ -11,7 +11,7 @@ for root, dirs, files in os.walk(folder_path):
             image_path = os.path.join(root, filename)
             image = Image.open(image_path)
             width, height = image.size
-            new_width = 1024
+            new_width = 2048
             new_height = int(height * new_width / width)
             resized_image = image.resize((new_width, new_height))
             resized_image.save(image_path)
