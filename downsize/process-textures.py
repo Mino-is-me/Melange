@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-target_drive = 'D:/'
+target_drive = 'E:/wip/'
 folder_path = target_drive + 'CINEVStudio/'
 
 for root, dirs, files in os.walk(folder_path):

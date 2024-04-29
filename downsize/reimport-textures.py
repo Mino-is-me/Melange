@@ -53,8 +53,8 @@ for asset in selectedAssets:
         import_info = asset.get_editor_property('asset_import_data')
         source_file = import_info.get_first_filename()
         
-        #이미지 저장할 드라이브 경로
-        target_drive = 'D:/'
+        #이미지 저장된 드라이브 경로
+        target_drive = 'E:/wip/'
         source_drive = unreal.Paths.project_dir().split('/')[0] + '/'
 
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
@@ -65,17 +65,17 @@ for asset in selectedAssets:
 
         if hasPNG != -1:
             print('This is PNG')
-            file_path = selected_asset_path.replace('E:/', 'D:/').replace('.uasset','.png')
+            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
             exporter = unreal.TextureExporterPNG()
         elif hasTGA != -1:
             print('This is TGA')
             exporter = unreal.TextureExporterTGA()
-            file_path = selected_asset_path.replace('E:/', 'D:/').replace('.uasset','.png')
+            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
         else:
             # to-do > rgba채널 사용하는 텍스처면 tga로 아니면 png로 익스포트하게하기
             print('This is PNG')
             exporter = unreal.TextureExporterPNG()
-            file_path = selected_asset_path.replace('E:/', 'D:/').replace('.uasset','.png')
+            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
         reimport_texture(tex_path, file_path)
     else:
         print('This texture is not over 1024px')

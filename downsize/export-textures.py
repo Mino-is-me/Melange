@@ -47,12 +47,11 @@ desired_size = 2048
 #선택된 텍스처 익스포트
 for asset in selectedAssets:
     tex_size_x = asset.blueprint_get_size_x()
-    is_virtual_texture = asset.get_editor_property('virtual_texture_streaming')
+    is_virtual_texture = False
+    #asset.get_editor_property('virtual_texture_streaming')
     
     # 조건
-    needs_export = tex_size_x > desired_size and not is_virtual_texture
-
-    print('need_export : ', needs_export)
+    needs_export = tex_size_x > desired_size
     
     if needs_export :
         # 변경 목록 전체숫자 체크 용도
@@ -63,13 +62,14 @@ for asset in selectedAssets:
         source_file = import_info.get_first_filename()
         
         #이미지 저장할 드라이브 경로
-        target_drive = 'D:/'
+        target_drive = 'E:/wip/'
         source_drive = unreal.Paths.project_dir().split('/')[0] + '/'
 
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
         file_path: str
         hasPNG = source_file.lower().find('.png')
         hasTGA = source_file.lower().find('.tga')
+        hasJPG = source_file.lower().find('.jpg')
 
         if hasPNG != -1:
             print('This is PNG')
@@ -79,11 +79,15 @@ for asset in selectedAssets:
             print('This is TGA')
             exporter = unreal.TextureExporterTGA()
             file_path = new_tex_path.replace('.uasset','.tga')
+        elif hasJPG != -1:
+            print('This is TGA')
+            exporter = unreal.TextureExporterJPEG()
+            file_path = new_tex_path.replace('.uasset','.tga')
         else:
             # to-do > rgba채널 사용하는 텍스처면 tga로 아니면 png로 익스포트하게하기
             print('This is PNG')
-            exporter = unreal.TextureExporterPNG()
-            file_path = new_tex_path.replace('.uasset','.png')
+            exporter = unreal.TextureExporterTGA()
+            file_path = new_tex_path.replace('.uasset','.tga')
         export_texture(asset, file_path, exporter)
         time.sleep(2)
 print(' ************** ', len(ImagePathList),' ************** ')
