@@ -1,18 +1,22 @@
-import unreal 
+import unreal,importlib
+from Lib import __lib_archeron__ as archeron
 
-levels = unreal.EditorUtilityLibrary.get_selected_assets()
+importlib.reload(archeron)
 
+actors : list[unreal.Actor] = archeron.get_all_leveL_actors()
 
-for each in levels :
-    each_name = each.get_path_name()
-    print(each_name)
-    unreal.EditorLevelLibrary.load_level(each_name)
-    actors = unreal.EditorLevelLibrary.get_all_level_actors()
-
+if len(actors) > 0 :
     for actor in actors :
-        tags =  actor.get_editor_property('tags')
-        if tags == [] :
-            label = actor.get_actor_label()
-            new_tags = [label]
-            actor.set_editor_property('tags',new_tags)
-
+        print(actor.get_actor_label())
+        actor_label = actor.get_actor_label()
+        
+        actor_tags = actor.get_editor_property('tags')
+        
+        if len(actor_tags) == 0 :
+            actor_tags = [actor_label]
+            actor.set_editor_property('tags',actor_tags)
+        
+        
+        
+        
+        

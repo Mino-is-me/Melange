@@ -20,5 +20,5 @@ for tex in list_tex:
         tex_path = tex.get_path_name()
         new_tex_path = kafka.remap_uepath_to_filepath(tex_path)
         png_tex_path = new_tex_path.replace('.uasset','.png')
-        #topaz.export_texture_to_png(tex,png_tex_path)
+        topaz.export_texture_to_png(tex,png_tex_path)
         

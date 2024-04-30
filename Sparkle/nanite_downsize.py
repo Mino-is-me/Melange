@@ -10,10 +10,12 @@ for each in assets :
     if each.__class__ == unreal.Blueprint : 
         comps = topaz.get_component_by_class(each, unreal.StaticMeshComponent)
         for comp in comps :
-            static_mesh     : unreal.StaticMesh                 = comp.static_mesh
-            if static_mesh is not None : 
-
-                
+            
+            static_mesh = comp.static_mesh
+            blendModes = topaz.get_materials_from_staticmesh(static_mesh, True)
+            is_translucent_exist = topaz.is_translucent_exist(blendModes)
+            
+            if static_mesh is not None and not is_translucent_exist: 
 
                 nanite_settings : unreal.MeshNaniteSettings     = static_mesh.get_editor_property('nanite_settings')
                 nanite_settings.enabled = True
@@ -22,7 +24,10 @@ for each in assets :
             #print(nanite_settings.keep_percent_triangles)
                 
     if each.__class__ == unreal.StaticMesh : 
-        if each is not None : 
+        blendModes = topaz.get_materials_from_staticmesh(static_mesh, True)
+        is_translucent_exist = topaz.is_translucent_exist(blendModes)
+        
+        if each is not None and not is_translucent_exist: 
 
             nanite_settings : unreal.MeshNaniteSettings     = each.get_editor_property('nanite_settings')
             nanite_settings.enabled = True
