@@ -35,29 +35,53 @@ def reimport_texture ( selected_asset_path: str, file_path : str) :
     importTask.factory = textureFactory
 
     executeImportTask(importTask)
-    # textureFactory.set_editor_property('asset_import_task', importTask)
-    print('HO!')
     
     return True
 
 def executeImportTask(task):
     unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
-    
+
     return True
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 for asset in selectedAssets:
     
     tex_size_x = asset.blueprint_get_size_x()
-    if tex_size_x > 1024 :
+    if tex_size_x > 2048 :
         tex_path = asset.get_path_name()
         selected_asset_path = remap_uepath_to_filepath(tex_path)
-        file_path = selected_asset_path.replace('E:/', 'D:/').replace('.uasset','.png')
+        import_info = asset.get_editor_property('asset_import_data')
+        source_file = import_info.get_first_filename()
+        
+        #이미지 저장된 드라이브 경로
+        target_drive = 'E:/wip/Game/'
+        source_drive = 'E:/CINEVStudio/CINEVStudio/Content/'
 
-        print("텍스처 에셋 절대 경로 ", selected_asset_path)
-        print("텍스처 에셋 경로 ", tex_path)
-        print("파일 경로 ",  file_path)
+        new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
+  
+        file_path: str
+        has_source = len(source_file) != 0
+        hasPNG = source_file.lower().find('.png')
+        hasTGA = source_file.lower().find('.tga')
+        hasJPEG = source_file.lower().find('.jpeg') or source_file.lower().find('.jpg')
 
+        if has_source:
+            if hasPNG != -1:
+                print('This is PNG')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+            elif hasTGA != -1:
+                print('This is TGA')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+            elif hasJPEG != -1:
+                print('This is JPEG')                
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.jpeg')
+        else:
+            hasAlpha = asset.get_editor_property('compression_no_alpha') == False
+            print('This is PNG')
+            if hasAlpha:
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
+            else:
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
         reimport_texture(tex_path, file_path)
     else:
         print('This texture is not over 1024px')
