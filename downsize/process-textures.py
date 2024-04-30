@@ -2,12 +2,12 @@ import os
 from PIL import Image
 
 target_drive = 'E:/wip/'
-folder_path = target_drive + 'CINEVStudio/'
+folder_path = target_drive + 'Game/'
 
 for root, dirs, files in os.walk(folder_path):
     for filename in files:
         print(filename)
-        if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.tga'):
+        if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.tga') or filename.endswith('.exr'):
             image_path = os.path.join(root, filename)
             image = Image.open(image_path)
             width, height = image.size

@@ -54,28 +54,34 @@ for asset in selectedAssets:
         source_file = import_info.get_first_filename()
         
         #이미지 저장된 드라이브 경로
-        target_drive = 'E:/wip/'
-        source_drive = unreal.Paths.project_dir().split('/')[0] + '/'
+        target_drive = 'E:/wip/Game/'
+        source_drive = 'E:/CINEVStudio/CINEVStudio/Content/'
 
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
   
         file_path: str
+        has_source = len(source_file) != 0
         hasPNG = source_file.lower().find('.png')
         hasTGA = source_file.lower().find('.tga')
+        hasJPEG = source_file.lower().find('.jpeg') or source_file.lower().find('.jpg')
 
-        if hasPNG != -1:
-            print('This is PNG')
-            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
-            exporter = unreal.TextureExporterPNG()
-        elif hasTGA != -1:
-            print('This is TGA')
-            exporter = unreal.TextureExporterTGA()
-            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+        if has_source:
+            if hasPNG != -1:
+                print('This is PNG')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+            elif hasTGA != -1:
+                print('This is TGA')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+            elif hasJPEG != -1:
+                print('This is JPEG')                
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.jpeg')
         else:
-            # to-do > rgba채널 사용하는 텍스처면 tga로 아니면 png로 익스포트하게하기
+            hasAlpha = asset.get_editor_property('compression_no_alpha') == False
             print('This is PNG')
-            exporter = unreal.TextureExporterPNG()
-            file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+            if hasAlpha:
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
+            else:
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
         reimport_texture(tex_path, file_path)
     else:
         print('This texture is not over 1024px')
