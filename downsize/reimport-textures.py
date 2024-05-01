@@ -45,12 +45,12 @@ def executeImportTask(task):
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 for asset in selectedAssets:
-    
-    tex_size_x = asset.blueprint_get_size_x()
+    texture_asset: unreal.Texture2D = asset
+    tex_size_x = texture_asset.blueprint_get_size_x()
     if tex_size_x > 2048 :
-        tex_path = asset.get_path_name()
+        tex_path = texture_asset.get_path_name()
         selected_asset_path = remap_uepath_to_filepath(tex_path)
-        import_info = asset.get_editor_property('asset_import_data')
+        import_info = texture_asset.get_editor_property('asset_import_data')
         source_file = import_info.get_first_filename()
         
         #이미지 저장된 드라이브 경로
@@ -59,29 +59,31 @@ for asset in selectedAssets:
 
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
   
-        file_path: str
+        
         has_source = len(source_file) != 0
         hasPNG = source_file.lower().find('.png')
         hasTGA = source_file.lower().find('.tga')
         hasJPEG = source_file.lower().find('.jpeg') or source_file.lower().find('.jpg')
-
+        file_path: str = ''
         if has_source:
             if hasPNG != -1:
                 print('This is PNG')
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
             elif hasTGA != -1:
                 print('This is TGA')
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
             elif hasJPEG != -1:
                 print('This is JPEG')                
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.jpeg')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.JPEG')
         else:
-            hasAlpha = asset.get_editor_property('compression_no_alpha') == False
+            hasAlpha = False
             print('This is PNG')
             if hasAlpha:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
             else:
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
         reimport_texture(tex_path, file_path)
+        unreal.EditorAssetLibrary.save_asset(texture_asset.get_path_name())
+        
     else:
-        print('This texture is not over 1024px')
+        print('This texture is not over 2048px')
