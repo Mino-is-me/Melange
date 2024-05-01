@@ -45,12 +45,12 @@ def executeImportTask(task):
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 for asset in selectedAssets:
-    
-    tex_size_x = asset.blueprint_get_size_x()
+    texture_asset: unreal.Texture2D = asset
+    tex_size_x = texture_asset.blueprint_get_size_x()
     if tex_size_x > 2048 :
-        tex_path = asset.get_path_name()
+        tex_path = texture_asset.get_path_name()
         selected_asset_path = remap_uepath_to_filepath(tex_path)
-        import_info = asset.get_editor_property('asset_import_data')
+        import_info = texture_asset.get_editor_property('asset_import_data')
         source_file = import_info.get_first_filename()
         
         #이미지 저장된 드라이브 경로
@@ -84,5 +84,7 @@ for asset in selectedAssets:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
         
         reimport_texture(tex_path, file_path)
+        unreal.EditorAssetLibrary.save_asset(texture_asset.get_path_name())
+        
     else:
         print('This texture is not over 2048px')
