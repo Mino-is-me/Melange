@@ -59,12 +59,12 @@ for asset in selectedAssets:
 
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, target_drive)
   
-        file_path: str
+        
         has_source = len(source_file) != 0
         hasPNG = source_file.lower().find('.png')
         hasTGA = source_file.lower().find('.tga')
         hasJPEG = source_file.lower().find('.jpeg') or source_file.lower().find('.jpg')
-
+        file_path: str = ''
         if has_source:
             if hasPNG != -1:
                 print('This is PNG')
@@ -76,12 +76,13 @@ for asset in selectedAssets:
                 print('This is JPEG')                
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.JPEG')
         else:
-            hasAlpha = asset.get_editor_property('compression_no_alpha') == False
+            hasAlpha = False
             print('This is PNG')
             if hasAlpha:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
             else:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
+        
         reimport_texture(tex_path, file_path)
     else:
         print('This texture is not over 2048px')
