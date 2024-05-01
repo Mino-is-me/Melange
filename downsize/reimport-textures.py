@@ -68,20 +68,20 @@ for asset in selectedAssets:
         if has_source:
             if hasPNG != -1:
                 print('This is PNG')
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
             elif hasTGA != -1:
                 print('This is TGA')
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
             elif hasJPEG != -1:
                 print('This is JPEG')                
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.jpeg')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.JPEG')
         else:
             hasAlpha = asset.get_editor_property('compression_no_alpha') == False
             print('This is PNG')
             if hasAlpha:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
             else:
-                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.png')
+                file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
         reimport_texture(tex_path, file_path)
     else:
-        print('This texture is not over 1024px')
+        print('This texture is not over 2048px')
