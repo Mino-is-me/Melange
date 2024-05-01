@@ -82,7 +82,6 @@ for asset in selectedAssets:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.exr')
             else:
                 file_path = selected_asset_path.replace(source_drive, target_drive).replace('.uasset','.PNG')
-        
         reimport_texture(tex_path, file_path)
         unreal.EditorAssetLibrary.save_asset(texture_asset.get_path_name())
         
