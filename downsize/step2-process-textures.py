@@ -2,9 +2,8 @@ import os
 from PIL import Image
 
 target_drive = 'E:/wip/'
-folder_path = target_drive + 'Game/'
 
-for root, dirs, files in os.walk(folder_path):
+for root, dirs, files in os.walk(target_drive):
     for filename in files:
         print(filename)
         if filename.lower().endswith('.jpg') or filename.lower().endswith('.png') or filename.lower().endswith('.tga') or filename.lower().endswith('.jpeg'):
