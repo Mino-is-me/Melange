@@ -85,38 +85,6 @@ def dialog_box(title:str, message:str) -> None:
     ## Description: Show the dialog box
     '''
     unreal.EditorDialog.show_message(title, message, unreal.AppMsgType.OK)
-     
-
-def execute_console_command(command:str, target:str ='') -> bool:
-    '''
-    #### Description: Execute the console command
-    #### command : desired command
-    #### target : target object, normaly editor asset.
-    '''
-    dir = get_git_path() 
-    target = target.replace(dir, '')
-    execute_command = command + ' ' + target
-    print('Command : ' + execute_command)
-    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
-    output, error = process.communicate()
-    print(command)
-    
-     
-
-def execute_console_command(command:str, target:str ='') -> str:
-    '''
-    #### Description: Execute the console command
-    #### command : desired command
-    #### target : target object, normaly editor asset.
-    '''
-    dir = get_git_path() 
-    target = target.replace(dir, '')
-    execute_command = command + ' ' + target
-    print('Command : ' + execute_command)
-    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
-    output, error = process.communicate()
-    print(command)
-    return output
     
      
 def lock_asset(asset:str) -> None:

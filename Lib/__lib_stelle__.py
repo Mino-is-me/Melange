@@ -1,5 +1,6 @@
 import os
 import csv
+import subprocess
 
 __all__ = [
     "substring",
@@ -56,5 +57,27 @@ def resize_image_file(image_path: str, new_width: int, new_height: int):
     img = img.resize((new_width, new_height))
     img.save(image_path)
     return True
+
+def execute_console_command(command:str, target:str ='') -> bool:
+    '''
+    #### Description: Execute the console command
+    #### command : desired command
+    #### target : target object, normaly editor asset.
+    '''
+    execute_command = command + ' ' + target
+    print('Command : ' + execute_command)
+    process = subprocess.Popen(execute_command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    print(command)
+    
+def get_engine_root (ue_ver : str ) -> str :
+    '''
+    ## Description: Get the engine root path
+    '''
+    program_files_dir = os.environ['PROGRAMFILES']
+    print(program_files_dir)
+    engine_root = program_files_dir + '/Epic Games/UE_' + ue_ver + '/Engine/'
+    
+    return engine_root
 
 print("Stelle initialised.")
