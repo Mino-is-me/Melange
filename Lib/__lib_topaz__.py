@@ -59,6 +59,12 @@ def get_component_by_var_name(blueprint_to_find_components : unreal.Blueprint, c
     return components
 
 def get_selected_assets(get_path : bool = False) -> list[unreal.Object]: #리스트로 선택된 오브젝트 리턴
+    '''
+    ## Use Case
+    boo : list[unreal.objectbase_] = topaz.get_selected_assets()
+    boo : list[unreal.objectbase_] = topaz.get_selected_assets(False)
+    boo : list[str] = topaz.get_selected_assets(True)
+    '''
     
     assets = unreal.EditorUtilityLibrary.get_selected_assets()
     
@@ -71,8 +77,14 @@ def get_selected_assets(get_path : bool = False) -> list[unreal.Object]: #리스
     else :  
         return assets
 
+
 def get_selected_asset(get_path : bool = False) -> unreal.Object: #단일 선택 오브젝트 리턴 
-    
+    '''
+    ## Use Case
+    boo : unreal.objectbase_ = topaz.get_selected_asset()
+    boo : unreal.objectbase_ = topaz.get_selected_asset(False)
+    boo : str = topaz.get_selected_asset(True)
+    '''
     if get_path :
         assets = get_selected_assets(True)
     else : 
@@ -82,9 +94,11 @@ def get_selected_asset(get_path : bool = False) -> unreal.Object: #단일 선택
     else:
         return None
     
+    
 def get_selected_level_actors() -> list[unreal.Actor]: #리스트로 선택된 액터 리턴 
     actors = unreal.EditorLevelLibrary.get_selected_level_actors()
     return actors
+
 
 def get_selected_level_actor() -> unreal.Actor: #단일 액터 리턴 
     actors = get_selected_level_actors()
@@ -92,6 +106,7 @@ def get_selected_level_actor() -> unreal.Actor: #단일 액터 리턴
         return actors[0]
     else:
         return None
+
 
 def cutoff_nanite_tri(_static_mesh_ : unreal.StaticMesh) -> float : #나나이트가 특정 트라이 이상일때 나나이트 트라이 퍼센테이지 리턴해줌, legacy
     if _static_mesh_ is not None :
