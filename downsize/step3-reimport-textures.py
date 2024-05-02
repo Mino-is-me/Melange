@@ -46,7 +46,7 @@ def executeImportTask(task):
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
 #이미지 저장된 드라이브 경로
-texture_folder = 'E:/wip/Game'
+texture_folder = 'E:/wip/Game/'
 source_drive = 'E:/CINEVStudio/CINEVStudio/Content/'
 
 desired_size = 2048
@@ -87,9 +87,11 @@ for asset in selectedAssets:
         else:
             hasAlpha = False
             print('This is PNG')
+
             if hasAlpha:
                 file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.exr')
             else:
+                print('hihi')
                 file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
         reimport_texture(tex_path, file_path)
         unreal.EditorAssetLibrary.save_asset(tex_asset.get_path_name())
