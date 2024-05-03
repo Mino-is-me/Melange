@@ -75,7 +75,7 @@ def get_engine_root (ue_ver : str ) -> str :
     ## Description: Get the engine root path
     '''
     program_files_dir = os.environ['PROGRAMFILES']
-    print(program_files_dir)
+    #print(program_files_dir)
     engine_root = program_files_dir + '/Epic Games/UE_' + ue_ver + '/Engine/'
     
     return engine_root

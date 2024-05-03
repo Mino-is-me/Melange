@@ -311,7 +311,7 @@ class export_texture_task :
         
         return True
     
-def expoert_selected_asset (asset : unreal._ObjectBase, destination : str) :
+def expoert_selected_asset (asset : unreal.Object, destination : str) :
     
     asset_path : str = asset.get_path_name()
     unreal.AssetToolsHelpers.get_asset_tools().export_to_disk(asset_path, destination)
