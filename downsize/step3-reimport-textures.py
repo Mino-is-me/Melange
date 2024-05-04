@@ -29,7 +29,6 @@ def reimport_texture ( tex_ue_file_path: str, file_path : str) :
     importTask.destination_path = destination_path
 
     print('destination_name ', destination_name)
-    print('destination_path ', destination_path)
 
     importTask.replace_existing = True
     importTask.save = True
@@ -91,7 +90,6 @@ for asset in selectedAssets:
             if hasAlpha:
                 file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.exr')
             else:
-                print('hihi')
                 file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
         reimport_texture(tex_path, file_path)
         unreal.EditorAssetLibrary.save_asset(tex_asset.get_path_name())

@@ -19,8 +19,8 @@ target_drive = 'E:/wip/'
 for asset in selectedAssets:
     asset.set_editor_property('max_texture_size', 0)
     tex_size_x = asset.blueprint_get_size_x()
-    print('tex_size_x: ', tex_size_x)
     if tex_size_x > desired_size :
+        print('process asset: ', asset.get_name())
         tex_path = asset.get_path_name()
         texture_paths.append(tex_path)
 
