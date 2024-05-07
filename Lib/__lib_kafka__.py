@@ -37,6 +37,14 @@ def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 �
     print(name)
     return name
 
+def get_git_username():
+    '''
+    ## Description: Get the Git username
+    '''
+    command = ['git', 'config', '--global', 'user.name']
+    git_username = subprocess.check_output(command).decode().strip()
+    print('Git Username = ' + git_username)
+    return git_username
     
 def get_selected_asset_source_path(asset:object) -> str:
     '''
@@ -119,4 +127,25 @@ def stage_assets(assets:list[str], commit_message:str) -> None:
         output, error = process.communicate()
         print(command)
     
+def unlock_user_assets(user:str) -> None:
+    '''
+    ## Description: Unlock all assets locked by a specific user
+    '''
+    dir = get_git_path()
+
+    # Get a list of all locked files
+    command = 'git lfs locks'
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+    output, error = process.communicate()
+    locked_files = output.decode().split('\n')
     
+    print(locked_files)
+
+    # Unlock each file locked by the specified user
+    for file in locked_files:
+        if file and user in file:
+            file = file.split(' ')[0]  # Get the file path
+            command = 'git lfs unlock ' + file
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, cwd=dir)
+            output, error = process.communicate()
+            print(command)
