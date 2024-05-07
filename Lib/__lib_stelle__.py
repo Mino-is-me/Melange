@@ -42,6 +42,10 @@ def write_list_to_csv(data: list, csv_file_path: str) -> csv:
 
     return True
 
+def read_csv_to_list(csv_path : str) -> list[str] : #csv파일에서 에셋 리스트로 리턴 
+    with open(csv_path, 'r') as f:
+        lines = f.readlines()
+    return lines
 
 def get_this_abs_directory() -> str:  # 현재 파일 경로 반환
     return os.path.dirname(os.path.realpath(__file__))
