@@ -64,35 +64,8 @@ for asset in selectedAssets:
         
         new_tex_path = remap_uepath_to_filepath(tex_path).replace(source_drive, texture_folder)
         
-        hasPNG = source_file.lower().find('.png')
-        hasTGA = source_file.lower().find('.tga')
-        hasJPEG = source_file.lower().find('.jpeg')
-        hasJPG = source_file.lower().find('.jpg')
-        file_path: str = ''
+        file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
+        print('tex_path: ', tex_path)
         
-        if has_source:
-            if hasPNG != -1:
-                print('This is PNG')
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
-            elif hasTGA != -1:
-                print('This is TGA')
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.TGA')
-            elif hasJPEG != -1:
-                print('This is JPEG')                
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
-            elif hasJPG != -1:
-                print('This is JPG')                
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
-        else:
-            hasAlpha = False
-            print('This is PNG')
-
-            if hasAlpha:
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.exr')
-            else:
-                file_path = tex_ue_file_path.replace(source_drive, texture_folder).replace('.uasset','.PNG')
         reimport_texture(tex_path, file_path)
         unreal.EditorAssetLibrary.save_asset(tex_asset.get_path_name())
-        
-    else:
-        print('This texture is not over 2048px')
