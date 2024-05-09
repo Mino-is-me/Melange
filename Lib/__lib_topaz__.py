@@ -58,20 +58,47 @@ def get_component_by_var_name(blueprint_to_find_components : unreal.Blueprint, c
 
     return components
 
-def get_selected_assets() -> list[unreal.Object]: #리스트로 선택된 오브젝트 리턴
+def get_selected_assets(get_path : bool = False) -> list[unreal.Object]: #리스트로 선택된 오브젝트 리턴
+    '''
+    ## Use Case
+    boo : list[unreal.objectbase_] = topaz.get_selected_assets()
+    boo : list[unreal.objectbase_] = topaz.get_selected_assets(False)
+    boo : list[str] = topaz.get_selected_assets(True)
+    '''
+    
     assets = unreal.EditorUtilityLibrary.get_selected_assets()
-    return assets
+    
+    if get_path : 
+        asset_paths = []
+        for asset in assets :
+            asset_path = unreal.EditorAssetLibrary.get_path_name_for_loaded_asset(asset)
+            asset_paths.append(asset_path)
+        return asset_paths
+    else :  
+        return assets
 
-def get_selected_asset() -> unreal.Object: #단일 선택 오브젝트 리턴 
-    assets = get_selected_assets()
+
+def get_selected_asset(get_path : bool = False) -> unreal.Object: #단일 선택 오브젝트 리턴 
+    '''
+    ## Use Case
+    boo : unreal.objectbase_ = topaz.get_selected_asset()
+    boo : unreal.objectbase_ = topaz.get_selected_asset(False)
+    boo : str = topaz.get_selected_asset(True)
+    '''
+    if get_path :
+        assets = get_selected_assets(True)
+    else : 
+        assets = get_selected_assets(False)
     if len(assets) > 0:
         return assets[0]
     else:
         return None
     
+    
 def get_selected_level_actors() -> list[unreal.Actor]: #리스트로 선택된 액터 리턴 
     actors = unreal.EditorLevelLibrary.get_selected_level_actors()
     return actors
+
 
 def get_selected_level_actor() -> unreal.Actor: #단일 액터 리턴 
     actors = get_selected_level_actors()
@@ -204,19 +231,7 @@ def export_staticmesh_to_fbx( static_mesh : unreal.StaticMesh, fbx_file_path : s
 
     return True
 
-def export_texture_to_png ( texture_asset : unreal.Texture2D, png_file_path : str) : #textureExporter
-    exportTask = unreal.AssetExportTask()
-    exportTask.automated = True
-    exportTask.filename = png_file_path
-    exportTask.object = texture_asset
-    exportTask.options = unreal.TextureExporterPNG()
-    exportTask.prompt = False
-    
-    tgaExporter = unreal.TextureExporterPNG()
-    exportTask.exporter = tgaExporter
-    tgaExporter.run_asset_export_task(exportTask)
-    
-    return True
+
     
 def reimport_texture ( texture_asset: unreal.Texture2D, tga_file_path : str) : #textureReimporter
     importTask = unreal.AssetImportTask()
@@ -234,6 +249,76 @@ def reimport_texture ( texture_asset: unreal.Texture2D, tga_file_path : str) : #
     
     return True
 
+class export_texture_task :
+    
+    def __init__(self) :
+        pass
+    
+    def png (self, texture_asset : unreal.Texture2D, file_path : str) : #textureExporter
+        
+        exportTask = unreal.AssetExportTask()
+        exportTask.automated = True
+        exportTask.filename = file_path
+        exportTask.object = texture_asset
+        exportTask.options = unreal.TextureExporterPNG()
+        exportTask.prompt = False
+        Exporter = unreal.TextureExporterPNG()
+        exportTask.exporter = Exporter
+        Exporter.run_asset_export_task(exportTask)
+    
+        return True
+
+    def tga (self, texture_asset : unreal.Texture2D, file_path : str) : #textureExporter
+        
+        exportTask = unreal.AssetExportTask()
+        exportTask.automated = True
+        exportTask.filename = file_path
+        exportTask.object = texture_asset
+        exportTask.options = unreal.TextureExporterTGA()
+        exportTask.prompt = False
+        Exporter = unreal.TextureExporterTGA()
+        exportTask.exporter = Exporter
+        Exporter.run_asset_export_task(exportTask)
+        
+        return True
+
+    def jpeg (self, texture_asset : unreal.Texture2D, file_path : str) : #textureExporter
+        
+        exportTask = unreal.AssetExportTask()
+        exportTask.automated = True
+        exportTask.filename = file_path
+        exportTask.object = texture_asset
+        exportTask.options = unreal.TextureExporterJPEG()
+        exportTask.prompt = False
+        Exporter = unreal.TextureExporterJPEG()
+        exportTask.exporter = Exporter
+        Exporter.run_asset_export_task(exportTask)
+        
+        return True
+    
+    def exr (self, texture_asset : unreal.Texture2D, file_path : str) :
+        
+        exportTask = unreal.AssetExportTask()
+        exportTask.automated = True
+        exportTask.filename = file_path
+        exportTask.object = texture_asset
+        exportTask.options = unreal.TextureExporterEXR()
+        exportTask.prompt = False
+        Exporter = unreal.TextureExporterEXR()
+        exportTask.exporter = Exporter
+        Exporter.run_asset_export_task(exportTask)
+        
+        return True
+    
+def expoert_selected_asset (asset : unreal.Object, destination : str) :
+    
+    asset_path : str = asset.get_path_name()
+    unreal.AssetToolsHelpers.get_asset_tools().export_to_disk(asset_path, destination)
+    
+    return True
+
 ###Initialised message when loaded ###
 unreal.log('Topaz initialised...')
+
+
 

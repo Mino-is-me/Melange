@@ -11,20 +11,24 @@ importlib.reload(kafka)
 importlib.reload(archeron)
 importlib.reload(stelle)
 
+
+
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
-desired_size = 2048
 texture_paths = []
-target_drive = 'E:/wip/'
+desired_size = 2048
 
 for asset in selectedAssets:
-    asset.set_editor_property('max_texture_size', 0)
     tex_size_x = asset.blueprint_get_size_x()
     if tex_size_x > desired_size :
-        print('process asset: ', asset.get_name())
         tex_path = asset.get_path_name()
         texture_paths.append(tex_path)
 
 print('export assets quantity: ', len(texture_paths))
-print('export assets: ', texture_paths)
-unreal.AssetToolsHelpers.get_asset_tools().export_assets(texture_paths, target_drive)
+unreal.AssetToolsHelpers.get_asset_tools().export_assets(texture_paths, 'E:/wip')
 print('successfully completed', len(texture_paths))
+
+# ...
+
+print('successfully completed', len(texture_paths))
+
+ctypes.windll.user32.MessageBoxW(0, "Script completed successfully!", "Notification", 0)
