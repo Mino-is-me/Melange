@@ -17,8 +17,18 @@ print(abs_path)
 
 
 files : list[str] = stelle.get_filenames(abs_path)
+file_modified_dates : list[str] = []
 
-csv : object = stelle.write_list_to_csv(files, abs_path)
+
+files_and_files_modified_date : list[list[str]] = [[]]
+
+for i in range(len(files)):
+    file_modified_date = stelle.get_file_edit_time(abs_path + '/' + files[i]) + ' ' + files[i]
+    files_and_files_modified_date.append([files[i], file_modified_date])
+
+csv : object = stelle.write_list_to_csv(files_and_files_modified_date, abs_path)
+
+print(files_and_files_modified_date)
 
 
 kafka.dialog_box('CSV 파일이 생성되었습니다.', '파일 경로 : ' + abs_path + '/generated_by_stelle.csv')
