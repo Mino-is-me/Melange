@@ -5,10 +5,12 @@ importlib.reload(topaz)
 importlib.reload(stelle)
 
 animList : str = 'D:/Parsing/list.csv'
+prefix_dir : str = '/Game/Customizing/Motion_Final/'
 
 anims : list[str] = stelle.read_csv_to_list(animList)
 
-anims = [i in for i in anims '/Game/Customizing/Motion_Final/' + i] ## 경로추가 
+anims = [prefix_dir + i for i in anims] ## 경로추가 
+anims = [i for i in anims if unreal.EditorAssetLibrary.does_asset_exist(i)] ## 존재하는 에셋만 필터링
 
 desired_notify_track_list : list[str] = ['IK_Pelvis', 'IK_Hand_R', 'Attach_Hand_R', 'IK_Hand_L', 'Attach_Hand_L'] 
 desired_curve_track_list : list[str] = ['IKCurve_Pelvis', 'IKCurve_Hand_R', 'IKCurve_Hand_L']
