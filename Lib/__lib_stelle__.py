@@ -1,6 +1,7 @@
 import os
 import csv
 import subprocess
+from datetime import datetime
 
 __all__ = [
     "substring",
@@ -23,22 +24,34 @@ def get_filenames(directory_path) -> list[str]:
     filenames = os.listdir(directory_path)
     return filenames
 
+def get_file_edit_time(file_path: str) -> str:
+    """
+    Get the last edit time of the file.
+    사용법 :
+        get_file_edit_time('C:/Users/username/Desktop/test.txt') ...
+        이렇게 하면 test.txt 파일의 마지막 수정 시간을 반환한다.
+    """
+    edit_time = os.path.getmtime(file_path)
+    edit_time = datetime.fromtimestamp(edit_time).strftime('%Y-%m-%d %H:%M:%S')
+    return edit_time
 
-def write_list_to_csv(data: list, csv_file_path: str) -> csv:
+def write_list_to_csv(data: list, csv_file_path: str) -> bool:
     """
     Write a list of data to a CSV file, with each element in the list as a row in the CSV file.
-    사용법 :
-        write_list_to_csv( ['a','b','c','d','e'], 'C:/Users/username/Desktop' ) ...
-        이렇게 하면 C:/Users/username/Desktop/generated_by_stelle.csv 파일이 생성되고, a,b,c,d,e 가 각각 한 줄씩 들어가게 된다.
+    If the list is 2-dimensional, each inner list is written as a row.
     """
     # Open the CSV file in write mode
     csv_file_path = csv_file_path + "/generated_by_stelle.csv"
     with open(csv_file_path, "w", newline="") as csvfile:
         # Create a CSV writer
         writer = csv.writer(csvfile)
-        for each in data:
-            each = [each]
-            writer.writerow(each)
+        for row in data:
+            # If the data is a 2-dimensional list, each inner list is written as a row
+            if isinstance(row, list):
+                writer.writerow(row)
+            # If the data is a 1-dimensional list, each element is written as a row
+            else:
+                writer.writerow([row])
 
     return True
 
