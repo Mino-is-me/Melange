@@ -1,5 +1,7 @@
 import unreal
 
+from downsize import step0_settings as settings
+
 def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 패스로 변환
     '''
     ## Description: Remap the Unreal Engine path to the file path
@@ -13,7 +15,6 @@ def remap_uepath_to_filepath(uepath: str) -> str: #언리얼 패스 -> 파일 �
     return name
 
 def reimport_texture ( tex_ue_file_path: str, file_path : str) :
-    # textureFactory = unreal.Texture2DFactoryNew()
     textureFactory = unreal.ReimportTextureFactory()
 
     importTask = unreal.AssetImportTask()
@@ -40,15 +41,14 @@ def reimport_texture ( tex_ue_file_path: str, file_path : str) :
 
 def executeImportTask(task):
     unreal.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
-
     return True
 
 selectedAssets = unreal.EditorUtilityLibrary.get_selected_assets()
-#이미지 저장된 드라이브 경로
-texture_folder = 'E:/wip/Game/'
-source_drive = 'E:/CINEVStudio/CINEVStudio/Content/'
 
-desired_size = 2048
+#이미지 저장된 드라이브 경로
+texture_folder = settings.texture_folder
+source_drive = settings.source_folder
+desired_size = settings.desired_size
 
 for asset in selectedAssets:
     tex_asset: unreal.Texture2D = asset
