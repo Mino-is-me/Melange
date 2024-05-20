@@ -5,4 +5,6 @@ git reset --hard
 git switch art/main-s4
 git reset --hard origin art/main-s4
 
+git checkout --track origin/art/main-s4
+
 git lfs prune origin 
