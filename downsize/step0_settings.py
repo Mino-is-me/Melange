@@ -11,7 +11,7 @@ wip_path = '/'.join(path_split)
 wip_folder = wip_path
 source_folder = content_path  
 texture_folder = wip_path + 'Game/'
-desired_size = 1024
+desired_size = 2024
 
 print('WIP Folder:', wip_folder)
 print('Source Folder:', source_folder)
