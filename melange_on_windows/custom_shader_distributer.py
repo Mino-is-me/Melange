@@ -1,5 +1,5 @@
 
-import importlib, shutil, os, stat, subprocess
+import shutil, os, stat, subprocess
 
 def remove_readonly(func, path, _):
     """Change the mode of path to writeable and retry the operation."""
