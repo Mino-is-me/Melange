@@ -35,13 +35,29 @@ def execute_console_command(command:str, target:str ='', dir:str ='.') -> bool:
 ## function End 
 
 
+def remove_readonly(func, path, _):
+    "Clear the readonly bit and reattempt the removal"
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+def remove_dir_force(dir_path: str):
+    '''
+    #### Description: Forcefully remove a directory and its contents
+    #### dir_path : path to the directory to remove
+    '''
+    if os.path.exists(dir_path):
+        shutil.rmtree(dir_path, onerror=remove_readonly)
+
+# Usage : remove_dir_force('C:/Users/username/Desktop/test')
+
+
 engine_version : str = '5.3'
 repo_url : str = 'https://gitlab.cinamon.me/cinev/customshader.git'
 
 engine_root = get_engine_root(engine_version)
 shader_root = engine_root + 'Shaders'
 
-shutil.rmtree(shader_root, ignore_errors=remove_readonly)
+remove_dir_force(shader_root)
 
 openFolder(engine_root)
 
